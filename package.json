@@ -41,6 +41,9 @@
       "src/**/*.js",
       "!**/node_modules/**"
     ],
+    "coveragePathIgnorePatterns" :[
+      "<rootDir>/src/index.js"
+    ],
     "coverageReporters": [
       "text-summary",
       "lcov",
