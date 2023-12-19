@@ -15,7 +15,7 @@ jest.mock("react-router-dom", () => ({
   useRouteError: () => mockedUsedNavigate,
 }));
 
-describe("ErrorPage", () => {
+describe("Books", () => {
   const booksMock = {
     books: [
       {
@@ -72,7 +72,7 @@ describe("ErrorPage", () => {
     jest.restoreAllMocks();
   });
 
-  it("should render Books page with mock books and both books are present in document", async () => {
+  it("should render Books when backend return books successfully", async () => {
     const routes = [
       {
         path: "/",
