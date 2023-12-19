@@ -87,7 +87,9 @@ describe("ErrorPage", () => {
     const javaBookElement = await screen.findByText(/Java book/);
     expect(javaBookElement).toBeInTheDocument();
 
-    expect(screen.getByText(/React book/)).toBeInTheDocument();
+    expect(screen.getByText(/Title : React book/)).toBeInTheDocument();
+    expect(screen.getByText(/Author : Amar/)).toBeInTheDocument();
+    expect(screen.getByText(/Price : 128.55/)).toBeInTheDocument();
   });
 
   it('should render "No books to show message if no books are available"', async () => {
