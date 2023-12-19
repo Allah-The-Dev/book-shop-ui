@@ -31,6 +31,8 @@ export const BookTitle = styled.h1``;
 
 export const BookAuthor = styled.h5``;
 
+export const BookPrice = styled.h5``;
+
 const BaseButton = styled.button`
   border: none;
   color: white;
@@ -44,11 +46,11 @@ const BaseButton = styled.button`
 `;
 
 export const BuyNowButton = styled(BaseButton)`
-  background-color: #4263f5;
+  background-color: ${({ disabled }) => (disabled ? "grey" : "#4263f5")};
 `;
 
 export const AddToCardButton = styled(BaseButton)`
-  background-color: #738af0;
+  background-color: ${({ disabled }) => (disabled ? "grey" : "#738af0")};
 `;
 
 export const BookDetailsContainer = styled.div`

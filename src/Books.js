@@ -11,6 +11,7 @@ import {
   BookDetailsAndActionsContainer,
   BookDetailsContainer,
   ActionOnBookContainer,
+  BookPrice,
 } from "./Books.style";
 
 function Books() {
@@ -18,25 +19,34 @@ function Books() {
 
   return (
     <BooksContainer>
-      {books.books.map((book) => (
-        <Book key={book.isbn}>
-          <BookImageContainer>
-            <BookImage alt={book.bookName} />
-          </BookImageContainer>
-          <BookDetailsAndActionsContainer>
+      {books && books.books && books.books.length ? (
+        books.books.map((book) => (
+          <Book key={book.isbn}>
+            <BookImageContainer>
+              <BookImage alt={book.bookName} />
+            </BookImageContainer>
             <BookDetailsAndActionsContainer>
-              <BookDetailsContainer>
-                <BookTitle>Title : {book.bookName}</BookTitle>
-                <BookAuthor>Author : {book.author}</BookAuthor>
-              </BookDetailsContainer>
+              <BookDetailsAndActionsContainer>
+                <BookDetailsContainer>
+                  <BookTitle>Title : {book.bookName}</BookTitle>
+                  <BookAuthor>Author : {book.author}</BookAuthor>
+                  <BookPrice>Price : {book.price}</BookPrice>
+                </BookDetailsContainer>
+              </BookDetailsAndActionsContainer>
+              <ActionOnBookContainer>
+                <BuyNowButton disabled={book.numberOfAvailableBooks <= 0}>
+                  Buy Now
+                </BuyNowButton>
+                <AddToCardButton disabled={book.numberOfAvailableBooks <= 0}>
+                  Add to Cart
+                </AddToCardButton>
+              </ActionOnBookContainer>
             </BookDetailsAndActionsContainer>
-            <ActionOnBookContainer>
-              <BuyNowButton>Buy Now</BuyNowButton>
-              <AddToCardButton>Add to Cart</AddToCardButton>
-            </ActionOnBookContainer>
-          </BookDetailsAndActionsContainer>
-        </Book>
-      ))}
+          </Book>
+        ))
+      ) : (
+        <h1>No books to show</h1>
+      )}
     </BooksContainer>
   );
 }

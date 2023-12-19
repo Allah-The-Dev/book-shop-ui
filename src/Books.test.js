@@ -45,6 +45,23 @@ describe("ErrorPage", () => {
     ],
   };
 
+  const singleBookMockWithNoAvailability = {
+    books: [
+      {
+        isbn: "012346",
+        bookName: "React book",
+        description: "React Book description",
+        author: "Bala",
+        publicationYear: 2022,
+        smallImageUrl: "imageurlsmall/img.img",
+        largeImageUrl: "largeImageurllarge.img",
+        price: 128.55,
+        numberOfAvailableBooks: 0,
+        rating: 4.8,
+      },
+    ],
+  };
+
   beforeEach(() => {
     jest.spyOn(global, "fetch").mockResolvedValue({
       json: jest.fn().mockResolvedValue(booksMock),
@@ -55,7 +72,7 @@ describe("ErrorPage", () => {
     jest.restoreAllMocks();
   });
 
-  it("should render Books page with mock book and both books are present in document", async () => {
+  it("should render Books page with mock books and both books are present in document", async () => {
     const routes = [
       {
         path: "/",
@@ -67,11 +84,48 @@ describe("ErrorPage", () => {
 
     render(<RouterProvider router={router} />);
 
-    // Testing navigating using the button
     const javaBookElement = await screen.findByText(/Java book/);
     expect(javaBookElement).toBeInTheDocument();
 
     expect(screen.getByText(/React book/)).toBeInTheDocument();
+  });
+
+  it('should render "No books to show message if no books are available"', async () => {
+    const routes = [
+      {
+        path: "/",
+        element: <Books />,
+        loader: () => ({
+          books: [],
+        }),
+      },
+    ];
+    const router = createMemoryRouter(routes, { initialEntries: ["/"] });
+
+    render(<RouterProvider router={router} />);
+
+    const javaBookElement = await screen.findByText(/No books to show/);
+    expect(javaBookElement).toBeInTheDocument();
+  });
+
+  it("should disable buy now and add to cart button if numberOfAvailableBooks <= 0", async () => {
+    
+    const routes = [
+      {
+        path: "/",
+        element: <Books />,
+        loader: () => singleBookMockWithNoAvailability,
+      },
+    ];
+    const router = createMemoryRouter(routes, { initialEntries: ["/"] });
+
+    render(<RouterProvider router={router} />);
+
+    const javaBookElement = await screen.findByText(/React book/);
+    expect(javaBookElement).toBeInTheDocument();
+
+    expect(screen.getByText(/Buy Now/)).toHaveAttribute('disabled');
+    expect(screen.getByText(/Add to Cart/)).toHaveAttribute('disabled');
   });
 
   it("should return books on call GET /books API", async () => {
