@@ -32,15 +32,15 @@ function Books() {
                   <BookAuthor>Author : {book.author}</BookAuthor>
                   <BookPrice>Price : {book.price}</BookPrice>
                 </BookDetailsContainer>
+                <ActionOnBookContainer>
+                  <BuyNowButton disabled={book.numberOfAvailableBooks <= 0}>
+                    Buy Now
+                  </BuyNowButton>
+                  <AddToCardButton disabled={book.numberOfAvailableBooks <= 0}>
+                    Add to Cart
+                  </AddToCardButton>
+                </ActionOnBookContainer>
               </BookDetailsAndActionsContainer>
-              <ActionOnBookContainer>
-                <BuyNowButton disabled={book.numberOfAvailableBooks <= 0}>
-                  Buy Now
-                </BuyNowButton>
-                <AddToCardButton disabled={book.numberOfAvailableBooks <= 0}>
-                  Add to Cart
-                </AddToCardButton>
-              </ActionOnBookContainer>
             </BookDetailsAndActionsContainer>
           </Book>
         ))
