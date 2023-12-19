@@ -41,7 +41,7 @@
       "src/**/*.js",
       "!**/node_modules/**"
     ],
-    "coveragePathIgnorePatterns" :[
+    "coveragePathIgnorePatterns": [
       "<rootDir>/src/index.js",
       "<rootDir>/src/reportWebVitals.js",
       "<rootDir>/src/setupTests.js"
@@ -62,5 +62,8 @@
         "lines": 90
       }
     }
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.6"
   }
 }
