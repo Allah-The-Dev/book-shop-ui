@@ -42,7 +42,9 @@
       "!**/node_modules/**"
     ],
     "coveragePathIgnorePatterns" :[
-      "<rootDir>/src/index.js"
+      "<rootDir>/src/index.js",
+      "<rootDir>/src/reportWebVitals.js",
+      "<rootDir>/src/setupTests.js"
     ],
     "coverageReporters": [
       "text-summary",
