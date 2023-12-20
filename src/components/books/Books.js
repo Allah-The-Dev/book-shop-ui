@@ -5,7 +5,7 @@ import {
   BookImage,
   BookTitle,
   BookAuthor,
-  BooksContainer,
+  HomePageContainer,
   BuyNowButton,
   AddToCardButton,
   BookImageContainer,
@@ -13,6 +13,7 @@ import {
   BookDetailsContainer,
   ActionOnBookContainer,
   BookPrice,
+  BooksContainer,
 } from "./Books.style";
 import { useEffect } from "react";
 import SearchBooks from "../searchBooks";
@@ -30,37 +31,41 @@ function Books() {
   }, [dispatch]);
 
   return (
-    <BooksContainer>
+    <HomePageContainer>
       <SearchBooks />
-      {books  && books.length ? (
-        books.map((book) => (
-          <Book key={book.isbn}>
-            <BookImageContainer>
-              <BookImage src={book.smallImageUrl} alt={book.bookName} />
-            </BookImageContainer>
-            <BookDetailsAndActionsContainer>
+      <BooksContainer>
+        {books && books.length ? (
+          books.map((book) => (
+            <Book key={book.isbn}>
+              <BookImageContainer>
+                <BookImage src={book.smallImageUrl} alt={book.bookName} />
+              </BookImageContainer>
               <BookDetailsAndActionsContainer>
-                <BookDetailsContainer>
-                  <BookTitle>Title : {book.bookName}</BookTitle>
-                  <BookAuthor>Author : {book.author}</BookAuthor>
-                  <BookPrice>Price : {book.price}</BookPrice>
-                </BookDetailsContainer>
-                <ActionOnBookContainer>
-                  <BuyNowButton disabled={book.numberOfAvailableBooks <= 0}>
-                    Buy Now
-                  </BuyNowButton>
-                  <AddToCardButton disabled={book.numberOfAvailableBooks <= 0}>
-                    Add to Cart
-                  </AddToCardButton>
-                </ActionOnBookContainer>
+                <BookDetailsAndActionsContainer>
+                  <BookDetailsContainer>
+                    <BookTitle>Title : {book.bookName}</BookTitle>
+                    <BookAuthor>Author : {book.author}</BookAuthor>
+                    <BookPrice>Price : {book.price}</BookPrice>
+                  </BookDetailsContainer>
+                  <ActionOnBookContainer>
+                    <BuyNowButton disabled={book.numberOfAvailableBooks <= 0}>
+                      Buy Now
+                    </BuyNowButton>
+                    <AddToCardButton
+                      disabled={book.numberOfAvailableBooks <= 0}
+                    >
+                      Add to Cart
+                    </AddToCardButton>
+                  </ActionOnBookContainer>
+                </BookDetailsAndActionsContainer>
               </BookDetailsAndActionsContainer>
-            </BookDetailsAndActionsContainer>
-          </Book>
-        ))
-      ) : (
-        <h1>No books to show</h1>
-      )}
-    </BooksContainer>
+            </Book>
+          ))
+        ) : (
+          <h1>No books to show</h1>
+        )}
+      </BooksContainer>
+    </HomePageContainer>
   );
 }
 

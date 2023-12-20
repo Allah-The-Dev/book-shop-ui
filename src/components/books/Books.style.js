@@ -1,12 +1,19 @@
 import styled from "styled-components";
 import BaseButton from "../baseButton";
 
-export const BooksContainer = styled.div`
+export const HomePageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 30px;
+`;
+
+export const BooksContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Book = styled.div`
@@ -15,7 +22,7 @@ export const Book = styled.div`
   border-radius: 10px;
   border: 2px solid #b5c1f7;
   width: 300px;
-  margin: 10px 0px;
+  margin: 10px 20px;
 `;
 
 export const BookImageContainer = styled.div`

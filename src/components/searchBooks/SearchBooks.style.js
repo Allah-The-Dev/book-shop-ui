@@ -10,7 +10,7 @@ export const SearchBookContainer = styled.div`
 export const SearchBookInputBox = styled.input`
   width: 100%;
   padding: 12px 20px;
-  margin: 6px 0;
+  margin: 5px 0;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -18,5 +18,5 @@ export const SearchBookInputBox = styled.input`
 `;
 
 export const SearchButton = styled(BaseButton)`
-  background-color: #0e31c9;
+  background-color: #4263f5;
 `;
