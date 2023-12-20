@@ -1,15 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Provider } from "react-redux";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import ErrorPage from "./components/errorPage";
-import Books, { loadBooks } from "./components/books";
+import Books from "./components/books";
+import store from "./app/store";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    loader: loadBooks,
     element: <Books />,
     errorElement: <ErrorPage />,
   },
@@ -18,7 +19,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 

@@ -1,4 +1,5 @@
-import { useLoaderData } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { selectBooks, addBooks } from "../../features/books/booksSlice";
 import {
   Book,
   BookImage,
@@ -13,14 +14,24 @@ import {
   ActionOnBookContainer,
   BookPrice,
 } from "./Books.style";
+import { useEffect } from "react";
 
 function Books() {
-  const books = useLoaderData();
+  const books = useSelector(selectBooks);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const intializeBooks = async () => {
+      const books = await loadBooks();
+      dispatch(addBooks(books));
+    };
+    intializeBooks();
+  }, [dispatch]);
 
   return (
     <BooksContainer>
-      {books && books.books && books.books.length ? (
-        books.books.map((book) => (
+      {books  && books.length ? (
+        books.map((book) => (
           <Book key={book.isbn}>
             <BookImageContainer>
               <BookImage alt={book.bookName} />

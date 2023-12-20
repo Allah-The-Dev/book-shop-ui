@@ -1,6 +1,7 @@
 import React from "react";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { screen, render } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import { renderWithProviders } from "../../test-utils";
 import Books, { loadBooks } from "./Books";
 
 // 1- Mocking the hook using jest.fn
@@ -14,6 +15,19 @@ jest.mock("react-router-dom", () => ({
   // 4- Mock the required hook
   useRouteError: () => mockedUsedNavigate,
 }));
+
+const renderBooksComponentWithReduxAndRouter = () => {
+  const routes = [
+    {
+      path: "/",
+      element: <Books />,
+    },
+  ];
+
+  const router = createMemoryRouter(routes, { initialEntries: ["/"] });
+
+  renderWithProviders(<RouterProvider router={router} />);
+};
 
 describe("Books", () => {
   const booksMock = {
@@ -62,27 +76,18 @@ describe("Books", () => {
     ],
   };
 
-  beforeEach(() => {
-    jest.spyOn(global, "fetch").mockResolvedValue({
-      json: jest.fn().mockResolvedValue(booksMock),
-    });
-  });
+  beforeEach(() => {});
 
   afterEach(() => {
     jest.restoreAllMocks();
+    jest.clearAllMocks();
   });
 
   it("should render Books when backend return books successfully", async () => {
-    const routes = [
-      {
-        path: "/",
-        element: <Books />,
-        loader: () => booksMock,
-      },
-    ];
-    const router = createMemoryRouter(routes, { initialEntries: ["/"] });
-
-    render(<RouterProvider router={router} />);
+    jest.spyOn(global, "fetch").mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(booksMock),
+    });
+    renderBooksComponentWithReduxAndRouter();
 
     const javaBookElement = await screen.findByText(/Java book/);
     expect(javaBookElement).toBeInTheDocument();
@@ -93,47 +98,35 @@ describe("Books", () => {
   });
 
   it('should render "No books to show" message if no books are available', async () => {
-    const routes = [
-      {
-        path: "/",
-        element: <Books />,
-        loader: () => ({
-          books: [],
-        }),
-      },
-    ];
-    const router = createMemoryRouter(routes, { initialEntries: ["/"] });
-
-    render(<RouterProvider router={router} />);
+    jest.spyOn(global, "fetch").mockResolvedValue({
+      json: jest.fn().mockResolvedValue({ books: [] }),
+    });
+    renderBooksComponentWithReduxAndRouter();
 
     const javaBookElement = await screen.findByText(/No books to show/);
     expect(javaBookElement).toBeInTheDocument();
   });
 
   it("should disable buy now and add to cart button if numberOfAvailableBooks <= 0", async () => {
-    
-    const routes = [
-      {
-        path: "/",
-        element: <Books />,
-        loader: () => singleBookMockWithNoAvailability,
-      },
-    ];
-    const router = createMemoryRouter(routes, { initialEntries: ["/"] });
-
-    render(<RouterProvider router={router} />);
+    jest.spyOn(global, "fetch").mockResolvedValue({
+      json: jest.fn().mockResolvedValue(singleBookMockWithNoAvailability),
+    });
+    renderBooksComponentWithReduxAndRouter();
 
     const javaBookElement = await screen.findByText(/React book/);
     expect(javaBookElement).toBeInTheDocument();
 
-    expect(screen.getByText(/Buy Now/)).toHaveAttribute('disabled');
-    expect(screen.getByText(/Add to Cart/)).toHaveAttribute('disabled');
+    expect(screen.getByText(/Buy Now/)).toHaveAttribute("disabled");
+    expect(screen.getByText(/Add to Cart/)).toHaveAttribute("disabled");
   });
 
   it("should return books on call GET /books API", async () => {
+    jest.spyOn(global, "fetch").mockResolvedValue({
+      json: jest.fn().mockResolvedValue(singleBookMockWithNoAvailability),
+    });
     const gotBooks = await loadBooks();
 
     expect(fetch).toHaveBeenCalledTimes(1);
-    expect(gotBooks).toEqual(booksMock);
+    expect(gotBooks).toEqual(singleBookMockWithNoAvailability);
   });
 });

@@ -13,6 +13,6 @@ describe("SearchBooks", () => {
     expect(searchBookInputElement).toHaveValue("java");
 
     // search "search" button
-    const searchButtonElement = screen.getByText(/Search/);
+    screen.getByText(/Search/);
   });
 });
