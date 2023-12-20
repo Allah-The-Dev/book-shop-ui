@@ -36,7 +36,7 @@ function Books() {
         books.map((book) => (
           <Book key={book.isbn}>
             <BookImageContainer>
-              <BookImage alt={book.bookName} />
+              <BookImage src={book.smallImageUrl} alt={book.bookName} />
             </BookImageContainer>
             <BookDetailsAndActionsContainer>
               <BookDetailsAndActionsContainer>
