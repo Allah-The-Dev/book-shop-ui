@@ -15,6 +15,7 @@ import {
   BookPrice,
 } from "./Books.style";
 import { useEffect } from "react";
+import SearchBooks from "../searchBooks";
 
 function Books() {
   const books = useSelector(selectBooks);
@@ -30,6 +31,7 @@ function Books() {
 
   return (
     <BooksContainer>
+      <SearchBooks />
       {books  && books.length ? (
         books.map((book) => (
           <Book key={book.isbn}>

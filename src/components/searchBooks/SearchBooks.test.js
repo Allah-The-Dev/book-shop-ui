@@ -1,9 +1,11 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
+import { renderWithProviders } from "../../test-utils";
+
 import SearchBooks from "./SearchBooks";
 
 describe("SearchBooks", () => {
   it("should show input box and button where user can search for a specific word", () => {
-    render(<SearchBooks />);
+    renderWithProviders(<SearchBooks />);
 
     // search input element 
     const searchBookInputElement = screen.getByPlaceholderText("java");

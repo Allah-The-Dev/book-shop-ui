@@ -4,15 +4,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 // As a basic setup, import your same slice reducers
 import booksReducer from "./features/books/booksSlice";
+import searchBooksReducer from "./features/searchBooks/searchBooksSlice";
 
 export function renderWithProviders(
   ui,
   {
-    preloadedState = {
-    },
+    preloadedState = {},
     // Automatically create a store instance if no store was passed in
     store = configureStore({
-      reducer: { books: booksReducer },
+      reducer: { books: booksReducer, searchBooks: searchBooksReducer },
       preloadedState,
     }),
     ...renderOptions
