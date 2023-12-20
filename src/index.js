@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import ErrorPage from "./error-page";
-import Books, { loadBooks } from "./Books";
+import ErrorPage from "./components/errorPage";
+import Books, { loadBooks } from "./components/books";
 
 const router = createBrowserRouter([
   {

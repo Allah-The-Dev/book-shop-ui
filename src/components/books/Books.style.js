@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import BaseButton from "../baseButton";
 
 export const BooksContainer = styled.div`
   display: flex;
@@ -32,18 +33,6 @@ export const BookTitle = styled.h1``;
 export const BookAuthor = styled.h5``;
 
 export const BookPrice = styled.h5``;
-
-const BaseButton = styled.button`
-  border: none;
-  color: white;
-  padding: 10px 5px;
-  text-align: center;
-  text-decoration: none;
-  display: flex;
-  font-size: 16px;
-  margin: 5px 5px;
-  border-radius: 5px;
-`;
 
 export const BuyNowButton = styled(BaseButton)`
   background-color: ${({ disabled }) => (disabled ? "grey" : "#4263f5")};

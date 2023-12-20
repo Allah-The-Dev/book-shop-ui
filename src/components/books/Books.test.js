@@ -92,7 +92,7 @@ describe("Books", () => {
     expect(screen.getByText(/Price : 128.55/)).toBeInTheDocument();
   });
 
-  it('should render "No books to show message if no books are available"', async () => {
+  it('should render "No books to show" message if no books are available', async () => {
     const routes = [
       {
         path: "/",
