@@ -16,6 +16,7 @@ import {
   BooksContainer,
 } from "./Books.style";
 import { useEffect } from "react";
+import { loadBooks } from "../service/bookService";
 import SearchBooks from "../searchBooks";
 
 function Books() {
@@ -38,14 +39,14 @@ function Books() {
           books.map((book) => (
             <Book key={book.isbn}>
               <BookImageContainer>
-                <BookImage src={book.smallImageUrl} alt={book.bookName} />
+                <BookImage src={book.largeImageUrl} alt={book.bookName} />
               </BookImageContainer>
               <BookDetailsAndActionsContainer>
                 <BookDetailsAndActionsContainer>
                   <BookDetailsContainer>
-                    <BookTitle>Title : {book.bookName}</BookTitle>
-                    <BookAuthor>Author : {book.author}</BookAuthor>
-                    <BookPrice>Price : {book.price}</BookPrice>
+                    <BookTitle><b>Title : </b>{book.bookName}</BookTitle>
+                    <BookAuthor><b>Author : </b>{book.author}</BookAuthor>
+                    <BookPrice><b>Price : </b>{book.price}</BookPrice>
                   </BookDetailsContainer>
                   <ActionOnBookContainer>
                     <BuyNowButton disabled={book.numberOfAvailableBooks <= 0}>
@@ -70,8 +71,3 @@ function Books() {
 }
 
 export default Books;
-
-export const loadBooks = async () => {
-  const response = await fetch("http://localhost:9090/books");
-  return response.json();
-};

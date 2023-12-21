@@ -2,7 +2,7 @@ import React from "react";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { screen } from "@testing-library/react";
 import { renderWithProviders } from "../../test-utils";
-import Books, { loadBooks } from "./Books";
+import Books from "./Books";
 
 // 1- Mocking the hook using jest.fn
 const mockedUsedNavigate = jest.fn();
@@ -92,9 +92,9 @@ describe("Books", () => {
     const javaBookElement = await screen.findByText(/Java book/);
     expect(javaBookElement).toBeInTheDocument();
 
-    expect(screen.getByText(/Title : React book/)).toBeInTheDocument();
-    expect(screen.getByText(/Author : Amar/)).toBeInTheDocument();
-    expect(screen.getByText(/Price : 128.55/)).toBeInTheDocument();
+    expect(screen.getByText(/React book/)).toBeInTheDocument();
+    expect(screen.getByText(/Amar/)).toBeInTheDocument();
+    expect(screen.getByText(/128.55/)).toBeInTheDocument();
   });
 
   it('should render "No books to show" message if no books are available', async () => {
@@ -118,15 +118,5 @@ describe("Books", () => {
 
     expect(screen.getByText(/Buy Now/)).toHaveAttribute("disabled");
     expect(screen.getByText(/Add to Cart/)).toHaveAttribute("disabled");
-  });
-
-  it("should return books on call GET /books API", async () => {
-    jest.spyOn(global, "fetch").mockResolvedValue({
-      json: jest.fn().mockResolvedValue(singleBookMockWithNoAvailability),
-    });
-    const gotBooks = await loadBooks();
-
-    expect(fetch).toHaveBeenCalledTimes(1);
-    expect(gotBooks).toEqual(singleBookMockWithNoAvailability);
   });
 });

@@ -14,6 +14,7 @@ export const BooksContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 `;
 
 export const Book = styled.div`
@@ -21,19 +22,25 @@ export const Book = styled.div`
   flex-direction: row;
   border-radius: 10px;
   border: 2px solid #b5c1f7;
-  width: 300px;
+  width: 500px;
+  height: 300px;
   margin: 10px 20px;
 `;
 
 export const BookImageContainer = styled.div`
-  flex: 1;
+  flex: 2;
+  padding: 20px 20px;
 `;
 
-export const BookImage = styled.img``;
+export const BookImage = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: fill;
+`;
 
 export const BookDetailsAndActionsContainer = styled.div`
   margin-left: 20px;
-  flex: 4;
+  flex: 3;
 `;
 
 export const BookTitle = styled.h1``;
