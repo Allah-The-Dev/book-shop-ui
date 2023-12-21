@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { selectBooks, addBooks } from "../../features/books/booksSlice";
 import {
   Book,
@@ -23,6 +24,7 @@ import SearchBooks from "../searchBooks";
 function Books() {
   const books = useSelector(selectBooks);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const intializeBooks = async () => {
@@ -35,6 +37,8 @@ function Books() {
     };
     intializeBooks();
   }, [dispatch]);
+
+  console.log(JSON.stringify(books));
 
   return (
     <HomePageContainer>
@@ -63,16 +67,20 @@ function Books() {
                     </BookPrice>
                   </BookDetailsContainer>
                   <ActionOnBookContainer>
-                    <BuyNowButton disabled={book.numberOfAvailableBooks <= 0}>
+                    <BuyNowButton
+                      onClick={() => {
+                        navigate("/order/details", { state: { book: book } });
+                      }}
+                    >
                       Buy Now
                     </BuyNowButton>
                     <AddToCardButton
-                      disabled={book.numberOfAvailableBooks <= 0}
+                      disabled={areBooksNotAvailable(book.numberOfAvailableBooks)}
                     >
                       Add to Cart
                     </AddToCardButton>
                   </ActionOnBookContainer>
-                  {book.numberOfAvailableBooks <= 0 && (
+                  {areBooksNotAvailable(book.numberOfAvailableBooks) && (
                     <OutOfStockWarningText>Out of stock!</OutOfStockWarningText>
                   )}
                 </BookDetailsAndActionsContainer>
@@ -88,3 +96,7 @@ function Books() {
 }
 
 export default Books;
+
+export const areBooksNotAvailable = (numberOfAvailableBooks) => {
+  return numberOfAvailableBooks <= 0;
+};

@@ -1,10 +1,12 @@
 import React from "react";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { screen } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import * as bookService from "../../service/bookService";
 import { renderWithProviders } from "../../test-utils";
 import Books from "./Books";
 
+// 1- Mocking the hook using jest.fn
+const mockedUsedRouteError = jest.fn();
 // 1- Mocking the hook using jest.fn
 const mockedUsedNavigate = jest.fn();
 
@@ -14,7 +16,8 @@ jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
 
   // 4- Mock the required hook
-  useRouteError: () => mockedUsedNavigate,
+  useRouteError: () => mockedUsedRouteError,
+  useNavigate: () => mockedUsedNavigate,
 }));
 
 const renderBooksComponentWithReduxAndRouter = () => {
@@ -121,8 +124,32 @@ describe("Books", () => {
   });
 
   it("should not show books when load books return error", async () => {
-    jest.spyOn(bookService, "loadBooks").mockRejectedValueOnce(new Error("something went wrong"));
+    jest
+      .spyOn(bookService, "loadBooks")
+      .mockRejectedValueOnce(new Error("something went wrong"));
 
     renderBooksComponentWithReduxAndRouter();
-  })
+  });
+
+  it.only("should navigate to order details page on click of buy now button", async () => {
+    const singleBookMock = {
+      ...singleBookMockWithNoAvailability,
+      numberOfAvailableBooks: 2,
+    };
+    jest.spyOn(bookService, "loadBooks").mockResolvedValueOnce(singleBookMock);
+
+    renderBooksComponentWithReduxAndRouter();
+
+    const javaBookElement = await screen.findByText(/React book/);
+    expect(javaBookElement).toBeInTheDocument();
+
+    const buyNowButton = screen.getByText(/Buy Now/);
+
+    await waitFor(() => expect(buyNowButton).toBeEnabled());
+    fireEvent.click(buyNowButton);
+
+    expect(mockedUsedNavigate).toHaveBeenCalledWith("/order/details", {
+      state: { book: singleBookMock.books[0] },
+    });
+  });
 });

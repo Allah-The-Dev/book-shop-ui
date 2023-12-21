@@ -8,6 +8,7 @@ import ErrorPage from "./components/errorPage";
 import Books from "./components/books";
 import store from "./app/store";
 import HomePage from "./components/homePage";
+import OrderDetails from "./components/orderDetails/OrderDetails";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     element: <Books />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/order/details",
+    element: <OrderDetails />
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
