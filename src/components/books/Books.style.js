@@ -39,6 +39,7 @@ export const BookImage = styled.img`
 `;
 
 export const BookDetailsAndActionsContainer = styled.div`
+  padding-top: 10px;
   margin-left: 20px;
   flex: 3;
 `;
@@ -63,6 +64,8 @@ export const BookDetailsContainer = styled.div`
 `;
 
 export const ActionOnBookContainer = styled.div`
+  padding-top: 10px;
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
 `;
