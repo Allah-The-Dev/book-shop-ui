@@ -14,6 +14,7 @@ import {
   ActionOnBookContainer,
   BookPrice,
   BooksContainer,
+  OutOfStockWarningText,
 } from "./Books.style";
 import { useEffect } from "react";
 import { loadBooks } from "../../service/bookService";
@@ -44,9 +45,18 @@ function Books() {
               <BookDetailsAndActionsContainer>
                 <BookDetailsAndActionsContainer>
                   <BookDetailsContainer>
-                    <BookTitle><b>Title : </b>{book.bookName}</BookTitle>
-                    <BookAuthor><b>Author : </b>{book.author}</BookAuthor>
-                    <BookPrice><b>Price : </b>{book.price}</BookPrice>
+                    <BookTitle>
+                      <b>Title : </b>
+                      {book.bookName}
+                    </BookTitle>
+                    <BookAuthor>
+                      <b>Author : </b>
+                      {book.author}
+                    </BookAuthor>
+                    <BookPrice>
+                      <b>Price : </b>
+                      {book.price}
+                    </BookPrice>
                   </BookDetailsContainer>
                   <ActionOnBookContainer>
                     <BuyNowButton disabled={book.numberOfAvailableBooks <= 0}>
@@ -58,6 +68,9 @@ function Books() {
                       Add to Cart
                     </AddToCardButton>
                   </ActionOnBookContainer>
+                  {book.numberOfAvailableBooks <= 0 && (
+                    <OutOfStockWarningText>Out of stock!</OutOfStockWarningText>
+                  )}
                 </BookDetailsAndActionsContainer>
               </BookDetailsAndActionsContainer>
             </Book>

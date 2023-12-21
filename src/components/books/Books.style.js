@@ -42,6 +42,7 @@ export const BookDetailsAndActionsContainer = styled.div`
   padding-top: 10px;
   margin-left: 20px;
   flex: 3;
+  flex-direction: column;
 `;
 
 export const BookTitle = styled.h1``;
@@ -68,4 +69,10 @@ export const ActionOnBookContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+`;
+
+export const OutOfStockWarningText = styled.p`
+  color: #e00914;
+  font-size: medium;
+  margin-top: 10px;
 `;
