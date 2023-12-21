@@ -26,8 +26,12 @@ function Books() {
 
   useEffect(() => {
     const intializeBooks = async () => {
-      const books = await loadBooks();
-      dispatch(addBooks(books));
+      try {
+        const books = await loadBooks();
+        dispatch(addBooks(books));
+      } catch (error) {
+        console.log(error);
+      }
     };
     intializeBooks();
   }, [dispatch]);

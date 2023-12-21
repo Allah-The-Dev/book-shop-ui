@@ -1,6 +1,7 @@
 import React from "react";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { screen } from "@testing-library/react";
+import * as bookService from "../../service/bookService";
 import { renderWithProviders } from "../../test-utils";
 import Books from "./Books";
 
@@ -84,9 +85,8 @@ describe("Books", () => {
   });
 
   it("should render Books when backend return books successfully", async () => {
-    jest.spyOn(global, "fetch").mockResolvedValueOnce({
-      json: jest.fn().mockResolvedValue(booksMock),
-    });
+    jest.spyOn(bookService, "loadBooks").mockResolvedValueOnce(booksMock);
+
     renderBooksComponentWithReduxAndRouter();
 
     const javaBookElement = await screen.findByText(/Java book/);
@@ -98,9 +98,8 @@ describe("Books", () => {
   });
 
   it('should render "No books to show" message if no books are available', async () => {
-    jest.spyOn(global, "fetch").mockResolvedValue({
-      json: jest.fn().mockResolvedValue({ books: [] }),
-    });
+    jest.spyOn(bookService, "loadBooks").mockResolvedValueOnce({ books: [] });
+
     renderBooksComponentWithReduxAndRouter();
 
     const javaBookElement = await screen.findByText(/No books to show/);
@@ -108,9 +107,10 @@ describe("Books", () => {
   });
 
   it("should disable buy now and add to cart button if numberOfAvailableBooks <= 0", async () => {
-    jest.spyOn(global, "fetch").mockResolvedValue({
-      json: jest.fn().mockResolvedValue(singleBookMockWithNoAvailability),
-    });
+    jest
+      .spyOn(bookService, "loadBooks")
+      .mockResolvedValueOnce(singleBookMockWithNoAvailability);
+
     renderBooksComponentWithReduxAndRouter();
 
     const javaBookElement = await screen.findByText(/React book/);
@@ -119,4 +119,10 @@ describe("Books", () => {
     expect(screen.getByText(/Buy Now/)).toHaveAttribute("disabled");
     expect(screen.getByText(/Add to Cart/)).toHaveAttribute("disabled");
   });
+
+  it("should not show books when load books return error", async () => {
+    jest.spyOn(bookService, "loadBooks").mockRejectedValueOnce(new Error("something went wrong"));
+
+    renderBooksComponentWithReduxAndRouter();
+  })
 });
