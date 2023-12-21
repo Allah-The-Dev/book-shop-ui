@@ -7,10 +7,16 @@ import reportWebVitals from "./reportWebVitals";
 import ErrorPage from "./components/errorPage";
 import Books from "./components/books";
 import store from "./app/store";
+import HomePage from "./components/homePage";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <HomePage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/books",
     element: <Books />,
     errorElement: <ErrorPage />,
   },

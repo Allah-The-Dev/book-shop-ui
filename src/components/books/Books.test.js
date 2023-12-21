@@ -19,12 +19,12 @@ jest.mock("react-router-dom", () => ({
 const renderBooksComponentWithReduxAndRouter = () => {
   const routes = [
     {
-      path: "/",
+      path: "/books",
       element: <Books />,
     },
   ];
 
-  const router = createMemoryRouter(routes, { initialEntries: ["/"] });
+  const router = createMemoryRouter(routes, { initialEntries: ["/books"] });
 
   renderWithProviders(<RouterProvider router={router} />);
 };

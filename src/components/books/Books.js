@@ -16,7 +16,7 @@ import {
   BooksContainer,
 } from "./Books.style";
 import { useEffect } from "react";
-import { loadBooks } from "../service/bookService";
+import { loadBooks } from "../../service/bookService";
 import SearchBooks from "../searchBooks";
 
 function Books() {

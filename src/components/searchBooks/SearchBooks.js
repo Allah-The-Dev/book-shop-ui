@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   SearchBookContainer,
   SearchBookInputBox,
@@ -9,17 +10,19 @@ import {
   selectSearchText,
   updateSearchText,
 } from "../../features/searchBooks/searchBooksSlice";
-import { loadBooks } from "../service/bookService";
+import { loadBooks } from "../../service/bookService";
 import { addBooks } from "../../features/books/booksSlice";
 
 const SearchBooks = () => {
   const searchText = useSelector(selectSearchText);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const searchBooks = async () => {
     try {
       const searchResult = await loadBooks(searchText);
       dispatch(addBooks(searchResult));
+      navigate(`/books?search=${searchText}`)
     } catch (error) {
       console.error(error);
     }
