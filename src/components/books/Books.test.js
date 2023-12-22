@@ -131,7 +131,7 @@ describe("Books", () => {
     renderBooksComponentWithReduxAndRouter();
   });
 
-  it.only("should navigate to order details page on click of buy now button", async () => {
+  it("should navigate to order details page on click of buy now button", async () => {
     const singleBookMock = {
       ...singleBookMockWithNoAvailability,
       numberOfAvailableBooks: 2,
@@ -143,7 +143,7 @@ describe("Books", () => {
     const javaBookElement = await screen.findByText(/React book/);
     expect(javaBookElement).toBeInTheDocument();
 
-    // const buyNowButton = screen.getByText(/Buy Now/);
+    // const buyNowButton = await screen.findByText(/Buy Now/)
 
     // await waitFor(() => expect(buyNowButton).toBeEnabled());
     // fireEvent.click(buyNowButton);
