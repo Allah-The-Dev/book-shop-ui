@@ -9,6 +9,7 @@ import Books from "./components/books";
 import store from "./app/store";
 import HomePage from "./components/homePage";
 import OrderDetails from "./components/orderDetails/OrderDetails";
+import ReviewOrderDetails from "./components/reviewOrderDetails/ReviewOrderDetails";
 
 const router = createBrowserRouter([
   {
@@ -23,8 +24,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/order/details",
-    element: <OrderDetails />
-  }
+    element: <OrderDetails />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/order/review",
+    element: <ReviewOrderDetails />,
+    errorElement: <ErrorPage />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

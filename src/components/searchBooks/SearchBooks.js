@@ -4,7 +4,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   SearchBookContainer,
   SearchBookInputBox,
-  SearchButton,
 } from "./SearchBooks.style";
 import {
   selectSearchText,
@@ -12,6 +11,7 @@ import {
 } from "../../features/searchBooks/searchBooksSlice";
 import { loadBooks } from "../../service/bookService";
 import { addBooks } from "../../features/books/booksSlice";
+import BaseButton from "../baseButton";
 
 const SearchBooks = () => {
   const searchText = useSelector(selectSearchText);
@@ -37,7 +37,7 @@ const SearchBooks = () => {
         onChange={(e) => dispatch(updateSearchText(e.target.value))}
         placeholder="java"
       />
-      <SearchButton onClick={searchBooks}>Search</SearchButton>
+      <BaseButton onClick={searchBooks}>Search</BaseButton>
     </SearchBookContainer>
   );
 };

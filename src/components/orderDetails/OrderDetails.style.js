@@ -1,13 +1,4 @@
 import styled from "styled-components";
-import BaseButton from "../baseButton";
-
-export const OrderDetailsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 100px;
-  justify-content: center;
-  align-items: center;
-`;
 
 export const OrderDetailsMessage = styled.h1`
   font-size: xx-large;
@@ -45,10 +36,6 @@ export const InputField = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-`;
-
-export const HomePageActionButton = styled(BaseButton)`
-  background-color: #4263f5;
 `;
 
 export const PaymentModeSelectionText = styled.legend`

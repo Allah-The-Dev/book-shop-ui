@@ -2,7 +2,6 @@ import { fireEvent, screen, waitFor } from "@testing-library/react";
 import bookService from "../../service/bookService";
 import { renderWithProviders } from "../../test-utils";
 import SearchBooks from "./SearchBooks";
-import { useSearchParams } from "react-router-dom";
 
 const booksMock = {
   books: [

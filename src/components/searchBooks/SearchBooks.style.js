@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import BaseButton from "../baseButton";
 
 export const SearchBookContainer = styled.div`
   display: flex;
@@ -17,6 +16,3 @@ export const SearchBookInputBox = styled.input`
   box-sizing: border-box;
 `;
 
-export const SearchButton = styled(BaseButton)`
-  background-color: #4263f5;
-`;

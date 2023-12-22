@@ -8,8 +8,8 @@ test("should return the initial state", () => {
       address: "",
       alternateMobileNo: "",
     },
-    paymentMode: "",
-    itemDetails: [{ id: 0, quantity: 0, price: 0 }],
+    paymentMode: "COD",
+    itemDetails: [{ id: 0, author: "", name: "", quantity: 0, price: 0 }],
   });
 });
 
@@ -21,8 +21,8 @@ test("should handle books being added to an empty list", () => {
       address: "",
       alternateMobileNo: "",
     },
-    paymentMode: "",
-    itemDetails: [{ id: 0, quantity: 0, price: 0 }],
+    paymentMode: "COD",
+    itemDetails: [{ id: 0, author: "", name: "", quantity: 0, price: 0 }],
   };
 
   expect(
@@ -35,7 +35,15 @@ test("should handle books being added to an empty list", () => {
           alternateMobileNo: "1234567890",
         },
         paymentMode: "COD",
-        itemDetails: [{ id: 1, quantity: 2, price: 200 }],
+        itemDetails: [
+          {
+            id: 1,
+            author: "tulsi",
+            name: "ramcharitmanas",
+            quantity: 2,
+            price: 200,
+          },
+        ],
       })
     )
   ).toEqual({
@@ -46,6 +54,14 @@ test("should handle books being added to an empty list", () => {
       alternateMobileNo: "1234567890",
     },
     paymentMode: "COD",
-    itemDetails: [{ id: 1, quantity: 2, price: 200 }],
+    itemDetails: [
+      {
+        id: 1,
+        author: "tulsi",
+        name: "ramcharitmanas",
+        quantity: 2,
+        price: 200,
+      },
+    ],
   });
 });

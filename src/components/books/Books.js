@@ -20,6 +20,9 @@ import {
 import { useEffect } from "react";
 import { loadBooks } from "../../service/bookService";
 import SearchBooks from "../searchBooks";
+import {
+  updateItemDetails,
+} from "../../features/orderDetails/orderDetailsSlice";
 
 function Books() {
   const books = useSelector(selectBooks);
@@ -27,7 +30,7 @@ function Books() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  useEffect(( ) => {
+  useEffect(() => {
     const intializeBooks = async () => {
       try {
         const books = await loadBooks(searchParams.get("search"));
@@ -69,7 +72,21 @@ function Books() {
                   </BookDetailsContainer>
                   <ActionOnBookContainer>
                     <BuyNowButton
+                      disabled={areBooksNotAvailable(
+                        book.numberOfAvailableBooks
+                      )}
                       onClick={() => {
+                        dispatch(
+                          updateItemDetails([
+                            {
+                              id: book.bookId,
+                              name: book.bookName,
+                              author: book.author,
+                              quantity: 1,
+                              price: book.price,
+                            },
+                          ])
+                        );
                         navigate("/order/details", { state: { book: book } });
                       }}
                     >
