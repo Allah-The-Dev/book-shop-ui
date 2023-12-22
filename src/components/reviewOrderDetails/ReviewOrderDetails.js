@@ -5,9 +5,9 @@ import {
   ReviewDetailsTable,
   ReviewOrderDetailsMessage,
   ReviewOrderSubHeading,
+  SubmitOrderButton,
 } from "./ReviewOrderDetails.style";
 import { selectOrderDetails } from "../../features/orderDetails/orderDetailsSlice";
-import BaseButton from "../baseButton";
 import { BaseButtonContainer } from "../baseButton/BaseButton";
 import { submitOrder } from "../../service/orderService";
 
@@ -24,7 +24,7 @@ const ReviewOrderDetails = () => {
         address: `${JSON.stringify(orderDetails?.address)}`,
         userId: "d8e71988-1a34-4b0c-bb4c-7d6a6a828ed2",
         paymentMode: orderDetails?.paymentMode,
-        totalAmount: orderDetails?.price,
+        totalAmount: orderDetails?.itemDetails[0].price,
         orderItemsList: [],
       };
       orderDetails?.itemDetails.forEach((item) => {
@@ -84,9 +84,13 @@ const ReviewOrderDetails = () => {
       </ReviewDetailsTable>
 
       <BaseButtonContainer>
-        <BaseButton type="button" onClick={submitOrderHandler}>
+        <SubmitOrderButton
+          type="button"
+          onClick={submitOrderHandler}
+          disabled={showOrderSuccess}
+        >
           Submit Order
-        </BaseButton>
+        </SubmitOrderButton>
       </BaseButtonContainer>
 
       {showOrderSuccess && (

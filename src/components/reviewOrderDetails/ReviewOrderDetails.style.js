@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import BaseButton from "../baseButton";
 
 export const ReviewDetailsTable = styled.table`
   margin-top: 10px;
@@ -23,4 +24,8 @@ export const ReviewOrderDetailsMessage = styled.h1`
 export const ReviewOrderSubHeading = styled.h2`
   margin-top: 50px;
   font-size: large;
+`;
+
+export const SubmitOrderButton = styled(BaseButton)`
+  background-color: ${({ disabled }) => (disabled ? "grey" : "#4263f5")};
 `;
