@@ -42,8 +42,6 @@ function Books() {
     intializeBooks();
   }, [dispatch, searchParams]);
 
-  console.log(JSON.stringify(books));
-
   return (
     <HomePageContainer>
       <SearchBooks />
