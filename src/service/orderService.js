@@ -8,5 +8,5 @@ export const submitOrder = async (orderDetails) => {
     },
     body: JSON.stringify(orderDetails),
   });
-  return response.json();
+  return response;
 };

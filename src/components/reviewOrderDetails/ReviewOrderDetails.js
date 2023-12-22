@@ -17,10 +17,12 @@ const ReviewOrderDetails = () => {
   const [showOrderFailed, setShowOrderFailed] = useState(false);
 
   const submitOrderHandler = async () => {
+    setShowOrderFailed(false);
+    setShowOrderSuccess(false);
     try {
       const orderDetailsToSubmit = {
         address: `${JSON.stringify(orderDetails?.address)}`,
-        userId: "3e9b9b38-0e6d-4e7b-b582-2f6a19f6b03d",
+        userId: "d8e71988-1a34-4b0c-bb4c-7d6a6a828ed2",
         paymentMode: orderDetails?.paymentMode,
         totalAmount: orderDetails?.price,
         orderItemsList: [],
@@ -35,6 +37,7 @@ const ReviewOrderDetails = () => {
       await submitOrder(orderDetailsToSubmit);
       setShowOrderSuccess(true);
     } catch (error) {
+      console.log(error);
       setShowOrderFailed(true);
     }
   };
@@ -87,7 +90,7 @@ const ReviewOrderDetails = () => {
       </BaseButtonContainer>
 
       {showOrderSuccess && (
-        <ReviewOrderDetailsMessage style={{ color: "red", marginTop: 30 }}>
+        <ReviewOrderDetailsMessage style={{ color: "green", marginTop: 30 }}>
           Your order have been placed successfully
         </ReviewOrderDetailsMessage>
       )}
