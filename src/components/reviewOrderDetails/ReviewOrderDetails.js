@@ -19,13 +19,13 @@ const ReviewOrderDetails = () => {
   const submitOrderHandler = async () => {
     try {
       const orderDetailsToSubmit = {
-        address: `${JSON.stringify(orderDetails.address)}`,
+        address: `${JSON.stringify(orderDetails?.address)}`,
         userId: "3e9b9b38-0e6d-4e7b-b582-2f6a19f6b03d",
-        paymentMode: orderDetails.paymentMode,
-        totalAmount: orderDetails.price,
+        paymentMode: orderDetails?.paymentMode,
+        totalAmount: orderDetails?.price,
         orderItemsList: [],
       };
-      orderDetails.itemDetails.forEach((item) => {
+      orderDetails?.itemDetails.forEach((item) => {
         orderDetailsToSubmit.orderItemsList.push({
           bookId: item.id,
           quantity: item.quantity,
