@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   SearchBookContainer,
   SearchBookInputBox,
@@ -17,12 +17,13 @@ const SearchBooks = () => {
   const searchText = useSelector(selectSearchText);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const searchBooks = async () => {
     try {
       const searchResult = await loadBooks(searchText);
       dispatch(addBooks(searchResult));
-      navigate(`/books?search=${searchText}`)
+      navigate(`/books?search=${searchText}`);
     } catch (error) {
       console.error(error);
     }
@@ -32,7 +33,7 @@ const SearchBooks = () => {
     <SearchBookContainer>
       <SearchBookInputBox
         type="text"
-        value={searchText}
+        value={searchText || searchParams.get("search") || ""}
         onChange={(e) => dispatch(updateSearchText(e.target.value))}
         placeholder="java"
       />

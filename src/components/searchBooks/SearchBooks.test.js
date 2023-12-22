@@ -2,6 +2,7 @@ import { fireEvent, screen, waitFor } from "@testing-library/react";
 import bookService from "../../service/bookService";
 import { renderWithProviders } from "../../test-utils";
 import SearchBooks from "./SearchBooks";
+import { useSearchParams } from "react-router-dom";
 
 const booksMock = {
   books: [
@@ -26,6 +27,7 @@ jest.mock("../../service/bookService", () => ({
 
 // 1- Mocking the hook using jest.fn
 const mockedUsedNavigate = jest.fn();
+const mockedSearchParams = [new URLSearchParams({ id: "123" })];
 
 // 2- Mock the library
 jest.mock("react-router-dom", () => ({
@@ -34,6 +36,7 @@ jest.mock("react-router-dom", () => ({
 
   // 4- Mock the required hook
   useNavigate: () => mockedUsedNavigate,
+  useSearchParams: () => mockedSearchParams,
 }));
 
 describe("SearchBooks", () => {

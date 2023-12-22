@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { selectBooks, addBooks } from "../../features/books/booksSlice";
 import {
   Book,
@@ -25,18 +25,19 @@ function Books() {
   const books = useSelector(selectBooks);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  useEffect(() => {
+  useEffect(( ) => {
     const intializeBooks = async () => {
       try {
-        const books = await loadBooks();
+        const books = await loadBooks(searchParams.get("search"));
         dispatch(addBooks(books));
       } catch (error) {
         console.log(error);
       }
     };
     intializeBooks();
-  }, [dispatch]);
+  }, [dispatch, searchParams]);
 
   console.log(JSON.stringify(books));
 
@@ -75,7 +76,9 @@ function Books() {
                       Buy Now
                     </BuyNowButton>
                     <AddToCardButton
-                      disabled={areBooksNotAvailable(book.numberOfAvailableBooks)}
+                      disabled={areBooksNotAvailable(
+                        book.numberOfAvailableBooks
+                      )}
                     >
                       Add to Cart
                     </AddToCardButton>
